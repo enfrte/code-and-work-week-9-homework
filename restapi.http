@@ -10,12 +10,13 @@ GET {{BASE_URL}}/student/1590143794308
 POST {{BASE_URL}}/student
 Content-Type: application/json
 
-{ "id": 1, "name": "Leon", "email": "leon@edu.edu" }
+{ "id": 1, "name": "Leon Post", "email": "leon@edu.edu" }
 
 ### student/:id
 DELETE {{BASE_URL}}/student/1590143813379
 
 ### student/:id
 PATCH {{BASE_URL}}/student/1590143794308
+Content-Type: application/json
 
 { "id": 1590143794308, "name": "Leon Patch", "email": "leon@edu.edu" }
