@@ -1,0 +1,28 @@
+@BASE_URL = http://localhost:5000
+
+### /bank/:user_id/balance
+GET {{BASE_URL}}/bank/1590409396128/balance
+
+### /bank/user
+POST {{BASE_URL}}/bank/user
+Content-Type: application/json
+
+{ 
+	"id": 1, 
+	"name": "asdf", 
+	"account_balance": 22, 
+	"password": "asdf" 
+}
+
+### user/:id
+DELETE {{BASE_URL}}/user/1590409396128
+
+### /bank/user/withdraw
+PATCH {{BASE_URL}}/bank/user/withdraw
+Content-Type: application/json
+
+{ 
+	"id": 1590409396128, 
+	"withdrawAmount": 2, 
+	"password": "asdf" 
+}
