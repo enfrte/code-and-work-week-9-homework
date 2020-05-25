@@ -1,0 +1,10 @@
+[
+	{
+		"id":1585844765400,
+		"username": "leon",
+		"name":"Leon Ford",
+		"balance":100,
+		"password":"qwerty",
+		"fund_requests":[]
+	},
+	{"id":1585845030433,"username":"tarja","name":"Tarja Ford","balance":200,"password":"qwerty","fund_requests":[]}]
