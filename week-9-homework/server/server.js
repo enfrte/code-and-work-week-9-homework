@@ -22,7 +22,7 @@ app.get('/test', (req, res) => {
 
 // H9.1. Create a new user with POST
 app.post("/bank/user", async (req, res) => {
-	console.log("POST request init!");
+  console.log("POST request init!");
   console.log("req.body:", req.body);
 
   let dbArray = await readDb();
@@ -37,12 +37,12 @@ app.post("/bank/user", async (req, res) => {
   dbArray = [...dbArray, newObj];
   writeToDb(dbArray);
 
-	res.send({userId: userId});
+  res.send({userId: userId});
 });
 
 //H9.2. GET account balance
 app.get("/bank/:user_id/balance", async (req, res) => {
-	console.log("GET request init!");
+  console.log("GET request init!");
   const dbArray = await readDb();
   const userId = parseInt(req.params.user_id);
 
@@ -54,15 +54,15 @@ app.get("/bank/:user_id/balance", async (req, res) => {
     res.send(`User not found`);
     return; 
   }
-	res.send({account_balance: account.account_balance});
+  res.send({account_balance: account.account_balance});
 });
 
 
 // H9.3. Withdraw money with PATCH
 app.patch("/bank/user/withdraw", async (req, res) => {
-	console.log("Withdraw patch request init!");
-	console.log("req.body:", req.body); 
-	let existingData = [];
+  console.log("Withdraw patch request init!");
+  console.log("req.body:", req.body); 
+  let existingData = [];
   let dbArray = await readDb();
   // copy of the db - get results that don't match (note, if there is only one user, then this will be empty)
   existingData = dbArray.filter((obj) => {
@@ -84,14 +84,14 @@ app.patch("/bank/user/withdraw", async (req, res) => {
   
   // add the updated result back to the database
   writeToDb([...existingData, userObj]);
-	res.send({new_account_balance: userObj.account_balance});
+  res.send({new_account_balance: userObj.account_balance});
 });
 
 //H9.4. Deposit money with PATCH
 app.patch("/bank/user/deposit", async (req, res) => {
-	console.log("Deposit PATCH request init!");
-	console.log("req.body:", req.body); 
-	let existingData = [];
+  console.log("Deposit PATCH request init!");
+  console.log("req.body:", req.body); 
+  let existingData = [];
   let dbArray = await readDb();
   // copy of the db - get results that don't match (note, if there is only one user, then this will be empty)
   existingData = dbArray.filter((obj) => {
@@ -112,7 +112,7 @@ app.patch("/bank/user/deposit", async (req, res) => {
   //console.log("userObj", userObj);
   // add the updated result back to the database
   writeToDb([...existingData, userObj]);
-	res.send({new_account_balance: userObj.account_balance});
+  res.send({new_account_balance: userObj.account_balance});
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
