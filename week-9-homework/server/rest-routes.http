@@ -26,3 +26,13 @@ Content-Type: application/json
 	"withdrawAmount": 2, 
 	"password": "asdf" 
 }
+
+### /bank/user/deposit
+PATCH {{BASE_URL}}/bank/user/deposit
+Content-Type: application/json
+
+{ 
+	"id": 1590409396128, 
+	"depositAmount": 2, 
+	"password": "asdf" 
+}

@@ -42,48 +42,74 @@ app.post("/bank/user", async (req, res) => {
 
 //H9.2. GET account balance
 app.get("/bank/:user_id/balance", async (req, res) => {
-  let result = [];
 	console.log("GET request init!");
-  //console.log("req.body:", req.body);
-  let dbArray = await readDb();
+  const dbArray = await readDb();
   const userId = parseInt(req.params.user_id);
 
-  result = dbArray.filter((obj) => {
+  const account = dbArray.find((obj) => {
     return obj.id === userId;
   });
-  if (result.length === 0) {
+  
+  if (account === undefined) {
     res.send(`User not found`);
-    return;
+    return; 
   }
-	res.send({account_balance: result[0].account_balance});
+	res.send({account_balance: account.account_balance});
 });
 
 
 // H9.3. Withdraw money with PATCH
 app.patch("/bank/user/withdraw", async (req, res) => {
 	console.log("Withdraw patch request init!");
-	console.log("req.body:", req.body); // empty
+	console.log("req.body:", req.body); 
 	let existingData = [];
   let dbArray = await readDb();
-  // copy of the db - get results that don't match (note, if there is only one user, then this will be empty, silly)
+  // copy of the db - get results that don't match (note, if there is only one user, then this will be empty)
   existingData = dbArray.filter((obj) => {
     return obj.id !== parseInt(req.body.id);
   });
   console.log("existingData", existingData);
   const userId = parseInt(req.body.id);
   // get the user object from the database
-  let userObj = dbArray.filter((obj) => {    
+  let userObj = dbArray.find((obj) => {    
     return obj.id === userId && obj.password === req.body.password;
   });
   console.log("userObj", userObj);
-  if (userObj.length === 0) {
+  if (userObj === undefined) {
     res.send(`Error: Invalid credentials.`);
     return;
   }
-  userObj = userObj[0];
   userObj.account_balance = userObj.account_balance - req.body.withdrawAmount;
   console.log("userObj", userObj);
   
+  // add the updated result back to the database
+  writeToDb([...existingData, userObj]);
+	res.send({new_account_balance: userObj.account_balance});
+});
+
+//H9.4. Deposit money with PATCH
+app.patch("/bank/user/deposit", async (req, res) => {
+	console.log("Deposit PATCH request init!");
+	console.log("req.body:", req.body); 
+	let existingData = [];
+  let dbArray = await readDb();
+  // copy of the db - get results that don't match (note, if there is only one user, then this will be empty)
+  existingData = dbArray.filter((obj) => {
+    return obj.id !== parseInt(req.body.id);
+  });
+  //console.log("existingData", existingData);
+  const userId = parseInt(req.body.id);
+  // get the user object from the database
+  let userObj = dbArray.find((obj) => {
+    return obj.id === userId && obj.password === req.body.password;
+  });
+  console.log("userObj", userObj);
+  if (userObj === undefined) {
+    res.send(`Error: Invalid credentials.`);
+    return;
+  }
+  userObj.account_balance = userObj.account_balance + req.body.depositAmount;
+  //console.log("userObj", userObj);
   // add the updated result back to the database
   writeToDb([...existingData, userObj]);
 	res.send({new_account_balance: userObj.account_balance});
