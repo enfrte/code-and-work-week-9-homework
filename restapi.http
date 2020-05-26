@@ -16,7 +16,7 @@ Content-Type: application/json
 DELETE {{BASE_URL}}/student/1590143813379
 
 ### student/:id
-PATCH {{BASE_URL}}/student/1590143794308
+PATCH {{BASE_URL}}/student/1590193182560
 Content-Type: application/json
 
-{ "id": 1590143794308, "name": "Leon Patch", "email": "leon@edu.edu" }
+{ "id": 1590193182560, "name": "Leon Patch", "email": "leon@edu.edu" }
