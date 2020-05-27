@@ -1,11 +1,9 @@
-const fs = require("fs");
 const express = require('express');
 const app = express();
 const helpers = require("./server-helpers.js");
 const writeToDb = helpers.writeToDb;
 const readDb = helpers.readDb;
 const port = process.env.PORT || 5000;
-const db = "database.json";
 
 // middleware
 app.use(express.json()); //Used to parse JSON bodies
